@@ -1,0 +1,45 @@
+name: 'Setup Hot'
+description: 'Install the Hot programming language CLI for use in GitHub Actions workflows'
+author: 'Hot Dev'
+
+branding:
+  icon: 'zap'
+  color: 'orange'
+
+inputs:
+  version:
+    description: 'Hot version to install (e.g. "1.2.3"). Defaults to latest.'
+    required: false
+    default: 'latest'
+  api-key:
+    description: 'Hot API key for deployment. Can also be set via HOT_API_KEY env var.'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Hot
+      shell: bash
+      run: |
+        version="${{ inputs.version }}"
+        if [ "$version" = "latest" ]; then
+          curl -fsSL https://get.hot.dev/install.sh | sh
+        else
+          curl -fsSL https://get.hot.dev/install.sh | sh -s -- --version "$version"
+        fi
+
+    - name: Set HOT_API_KEY
+      if: inputs.api-key != ''
+      shell: bash
+      run: echo "HOT_API_KEY=${{ inputs.api-key }}" >> "$GITHUB_ENV"
+
+    - name: Verify installation
+      shell: bash
+      run: |
+        if ! command -v hot &> /dev/null; then
+          echo "::error::Hot installation failed — 'hot' not found in PATH"
+          exit 1
+        fi
+        version=$(hot version 2>/dev/null || echo "unknown")
+        echo "Hot ${version} installed successfully"
