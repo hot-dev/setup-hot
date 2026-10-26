@@ -27,11 +27,20 @@ jobs:
 
 ### Pin a specific version
 
+Without `version`, the action installs the latest Hot release, so an unpinned
+pipeline moves to a new major version the day it ships. A build deploys only
+to a server on the same major version of Hot: a 3.0 CLI can't deploy to a 2.x
+server, and a 3.0 server doesn't run builds made with a 2.x CLI. Pin the
+version that matches your server, and change it when you upgrade:
+
 ```yaml
       - uses: hotdev/setup-hot@v1
         with:
-          version: '1.2.3'
+          version: '3.0.0'
 ```
+
+See [Pin a Specific Version](https://hot.dev/docs/ci-cd#pin-a-specific-version)
+and [Upgrading to Hot 3.0](https://hot.dev/docs/migrations#upgrading-to-hot-30).
 
 ### Pass the API key through the action
 
@@ -86,7 +95,7 @@ jobs:
 
 | Name | Description | Required | Default |
 |------|-------------|----------|---------|
-| `version` | Hot version to install (e.g. `1.2.3`). | No | `latest` |
+| `version` | Hot version to install (e.g. `3.0.0`). Pin it in production pipelines. | No | `latest` |
 | `api-key` | Hot API key for deployment. Alternative to setting `HOT_API_KEY` env var. | No | |
 
 ## How it works
