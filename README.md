@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: hotdev/setup-hot@v1
+      - uses: hot-dev/setup-hot@v1
       - run: hot deploy
         env:
           HOT_API_KEY: ${{ secrets.HOT_API_KEY }}
@@ -34,7 +34,7 @@ server, and a 3.0 server doesn't run builds made with a 2.x CLI. Pin the
 version that matches your server, and change it when you upgrade:
 
 ```yaml
-      - uses: hotdev/setup-hot@v1
+      - uses: hot-dev/setup-hot@v1
         with:
           version: '3.0.0'
 ```
@@ -45,7 +45,7 @@ and [Upgrading to Hot 3.0](https://hot.dev/docs/migrations#upgrading-to-hot-30).
 ### Pass the API key through the action
 
 ```yaml
-      - uses: hotdev/setup-hot@v1
+      - uses: hot-dev/setup-hot@v1
         with:
           api-key: ${{ secrets.HOT_API_KEY }}
       - run: hot deploy
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: hotdev/setup-hot@v1
+      - uses: hot-dev/setup-hot@v1
       - run: hot check
       - run: hot test
       - run: hot deploy
@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: hotdev/setup-hot@v1
+      - uses: hot-dev/setup-hot@v1
       - run: hot deploy
         env:
           HOT_API_KEY: ${{ secrets.HOT_API_KEY }}
